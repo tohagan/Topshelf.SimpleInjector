@@ -18,9 +18,15 @@ namespace Topshelf.SimpleInjector.Quartz
 
         public Func<IJobDetail> Job { get; private set; }
 
-        public ICollection<Func<ITrigger>> Triggers => _triggers ?? (_triggers = new Collection<Func<ITrigger>>());
+        public ICollection<Func<ITrigger>> Triggers
+        {
+            get { return _triggers ?? (_triggers = new Collection<Func<ITrigger>>()); }
+        }
 
-        public ICollection<Tuple<Func<IJobListener>, IMatcher<JobKey>[]>> JobListeners => _jobListeners ?? (_jobListeners = new Collection<Tuple<Func<IJobListener>, IMatcher<JobKey>[]>>());
+        public ICollection<Tuple<Func<IJobListener>, IMatcher<JobKey>[]>> JobListeners
+        {
+            get { return _jobListeners ?? (_jobListeners = new Collection<Tuple<Func<IJobListener>, IMatcher<JobKey>[]>>()); }
+        }
 
         public Func<bool> JobEnabled { get; private set; }
 
@@ -78,7 +84,7 @@ namespace Topshelf.SimpleInjector.Quartz
                 return this;
             }
 
-            throw new ArgumentException("must specify a valid cron expression", nameof(cronExpression));
+            throw new ArgumentException("must specify a valid cron expression", "cronExpression");
         }
 
         /// <summary>

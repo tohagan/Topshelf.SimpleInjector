@@ -26,7 +26,7 @@ namespace Topshelf.SimpleInjector.Quartz.Decorators.Sample
                 {
                     //Simple Repeatable Scheduled from TimeSpan
                     s.ScheduleQuartzJob(configurator =>
-                        configurator.WithSimpleRepeatableSchedule<JobWithInjectedDependenciesDecorated>(TimeSpan.FromSeconds(1), nameof(JobWithInjectedDependenciesDecorated)));
+                        configurator.WithSimpleRepeatableSchedule<JobWithInjectedDependenciesDecorated>(TimeSpan.FromSeconds(1), "JobWithInjectedDependenciesDecorated"));
 
                     // Let Topshelf use it
                     s.ConstructUsingSimpleInjector();

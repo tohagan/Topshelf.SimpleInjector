@@ -93,7 +93,10 @@ namespace Topshelf.SimpleInjector.QuartzAsService.Sample
                 Console.WriteLine("[" + typeof(RecurringJobListener).Name + "] Was executed");
             }
 
-            public string Name => typeof(RecurringJobListener).Name;
+            public string Name
+            {
+                get { return typeof(RecurringJobListener).Name; }
+            }
         }
     }
 }

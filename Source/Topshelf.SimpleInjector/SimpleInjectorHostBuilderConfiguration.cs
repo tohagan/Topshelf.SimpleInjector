@@ -21,7 +21,7 @@ namespace Topshelf.SimpleInjector
         {
             if (container == null)
             {
-                throw new ArgumentNullException(nameof(container));
+                throw new ArgumentNullException("container");
             }
 
             _container = container;
@@ -31,7 +31,10 @@ namespace Topshelf.SimpleInjector
 
         #region Public Properties
 
-        public static Container Container => _container;
+        public static Container Container 
+        {
+            get { return _container; }
+        }
 
         #endregion
 

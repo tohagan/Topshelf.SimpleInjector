@@ -102,12 +102,13 @@ namespace Topshelf.FileSystemWatcher
                     {
                         if (config.CreateDir)
                         {
-                            log.Debug($"[Topshelf.FileSystemWatcher] Path ({config.Path}) does not exist. Creating...");
+                            log.DebugFormat(@"[Topshelf.FileSystemWatcher] Path ({0}) does not exist. Creating...", config.Path);
                             Directory.CreateDirectory(config.Path);
                         }
                         else
                         {
-                            throw new DirectoryNotFoundException($"{config.Path} does not exist. Please call CreateDir in the FileSystemWatcherConfigurator, or make sure the dirs exist in the FileSystem");
+                            throw new DirectoryNotFoundException(
+                                String.Format("{0} does not exist. Please call CreateDir in the FileSystemWatcherConfigurator, or make sure the dirs exist in the FileSystem", config.Path));
                         }
                     }
 
@@ -122,7 +123,7 @@ namespace Topshelf.FileSystemWatcher
 
                     _watchers.Add(fileSystemWatcher);
 
-                    log.Info($"[Topshelf.FileSystemWatcher] configured to listen for events in {config.Path}");
+                    log.InfoFormat(@"[Topshelf.FileSystemWatcher] configured to listen for events in {0}", config.Path);
 
                     foreach (System.IO.FileSystemWatcher watcher in _watchers)
                     {
