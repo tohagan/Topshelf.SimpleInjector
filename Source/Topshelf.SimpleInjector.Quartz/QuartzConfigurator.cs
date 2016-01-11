@@ -73,7 +73,7 @@ namespace Topshelf.SimpleInjector.Quartz
         {
             if (CronExpression.IsValidExpression(cronExpression))
             {
-                CreateJobDeailFunc<TJob>(jobIdentity);
+                CreateJobDetailFunc<TJob>(jobIdentity);
 
                 Func<ITrigger> trigger = () => TriggerBuilder
                     .Create()
@@ -96,7 +96,7 @@ namespace Topshelf.SimpleInjector.Quartz
         /// <returns>The QuartzConfigurator for chained constructions</returns>
         public QuartzConfigurator WithSimpleRepeatableSchedule<TJob>(TimeSpan timeSpan, string jobIdentity = null) where TJob : IJob
         {
-            CreateJobDeailFunc<TJob>(jobIdentity);
+            CreateJobDetailFunc<TJob>(jobIdentity);
 
             Func<ITrigger> trigger = () => TriggerBuilder
                 .Create()
@@ -113,7 +113,7 @@ namespace Topshelf.SimpleInjector.Quartz
 
         #region Private Methods
 
-        private void CreateJobDeailFunc<TJob>(string jobIdentity) where TJob : IJob
+        private void CreateJobDetailFunc<TJob>(string jobIdentity) where TJob : IJob
         {
             if (string.IsNullOrWhiteSpace(jobIdentity))
             {
