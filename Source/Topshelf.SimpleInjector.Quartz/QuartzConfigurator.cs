@@ -67,17 +67,22 @@ namespace Topshelf.SimpleInjector.Quartz
         /// </summary>
         /// <typeparam name="TJob">The Job that is registered with the SimpleInjector container</typeparam>
         /// <param name="cronExpression">The cronExpression the job must be triggered by</param>
+        /// <param name="tz">Timezone of cron expression</param>
         /// <param name="jobIdentity">Unique Identifier for the Job. If null is passed, the namespace including class name will be used</param>
         /// <returns>The QuartzConfigurator for chained constructions</returns>
-        public QuartzConfigurator WithCronSchedule<TJob>(string cronExpression, string jobIdentity = null) where TJob : IJob
+        public QuartzConfigurator WithCronSchedule<TJob>(string cronExpression, TimeZoneInfo tz, string jobIdentity = null) where TJob : IJob
         {
             if (CronExpression.IsValidExpression(cronExpression))
             {
                 CreateJobDetailFunc<TJob>(jobIdentity);
 
+                IScheduleBuilder scheduleBuilder = CronScheduleBuilder
+                    .CronSchedule(cronExpression)
+                    .InTimeZone(tz);
+
                 Func<ITrigger> trigger = () => TriggerBuilder
                     .Create()
-                    .WithCronSchedule(cronExpression)
+                    .WithSchedule(scheduleBuilder)
                     .Build();
                 AddTrigger(trigger);
 
